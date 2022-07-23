@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # This is template for your program, for you to expand with all the correct
 """
-CE866: Computer Vision Assignment
 
 TASK: 
 
-The task of this assignment is to find the location and bearing angle of a 
+The task of this project is to find the location and bearing angle of a 
 pointer placed on a map.
     
 Given Information: 
@@ -73,9 +72,7 @@ Usage:
 
 Author:
     
-    Registration number : 2100641
-    Department: School of Computer Science and Electronics
-    Course: MSc Artificial Intelligence
+    Muhammed Mishal Kalladi
         
     I hereby certify that this program is entirely my own work .
 
@@ -447,6 +444,8 @@ def red_arrow_detection(im):
     cx,cy = M['m10']/M['m00'], M['m01']/M['m00']
     
     centroid = [cx,cy]
+    
+    
 
     return roi,centroid
 
@@ -462,7 +461,7 @@ The fuction also calculates the bearing angle of the pointer.
 """
 
 
-def bearing(center,point,maxY,maxX): 
+def bearing(im,center,point,maxY,maxX): 
     
     """
     This function calculates the bearing angle on the pointer
@@ -487,7 +486,7 @@ def bearing(center,point,maxY,maxX):
 #    Before calculating the bearing angle we have to change 
 #    y-cordinates from bottom to top.
   
-  
+    cv2.circle(im,point,10,(0,0,0),-1)
   
     center[1] = maxY - center[1]
     point[1] = maxY - point[1]
@@ -527,6 +526,14 @@ def bearing(center,point,maxY,maxX):
     
     scaled_x = point[0]/maxX
     scaled_y = point[1]/maxY
+    
+    Text = "Co-ordinates are : " + str(round(scaled_x,2)) + ", " + str(round(scaled_y,2)) +"   " + "Bearing angle : " + str(round(angle,2))
+    Text2 = "Note: The co-ordinates are scaled from 0 to 1 in x axis and y axis respectively, the Bearing angle is measured in degrees "
+    cv2.rectangle(im, (520, 120), (2, 1), (255, 255, 255), -1)
+    cv2.putText(im,Text,(50,50),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,0),1,cv2.LINE_AA)
+    cv2.putText(im,Text2,(10,80),cv2.FONT_HERSHEY_SIMPLEX,0.25,(0,0,0),1,cv2.LINE_AA)
+    cv2.imshow("map",im)
+    cv2.waitKey(0)
     
     
     return scaled_x,scaled_y,angle
@@ -571,7 +578,7 @@ for fn in sys.argv[1:]:
      the centroid of the triangle is used to calculate the bearing angle
      both these can be done using bearing function.
      """
-     xpos, ypos, hdg = bearing(centroid,roi,maxY,maxX)
+     xpos, ypos, hdg = bearing(map_img,centroid,roi,maxY,maxX)
      
      print ("The filename to work on is %s." % sys.argv[1])
      # Output the position and bearing in the form required by the test harness.

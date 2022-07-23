@@ -21,7 +21,7 @@ def run_program (program, fn):
 
     # Build up the command line and to run the program under test, then run it
     # and capture its standard output stream.
-    result = subprocess.run (["python3", program, fn],
+    result = subprocess.run (["python", program, fn],
                              stdout=subprocess.PIPE)
 
     # Convert the program's output to UTF-8 and split it into lines.  Then
