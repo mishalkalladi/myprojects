@@ -22,29 +22,7 @@ In the museum, a camera is arranged above a dark blue table, looking directly do
 1. Locate the tip of the pointer to determine the location.
 1. Determine the orientation of the pointer, convert it to a bearing and output it.
 
-`	`0
 
-`	`0.2
-
-`	`0.4
-
-`	`0.6
-
-`	`0.8
-
-`	`1
-
-`	`0
-
-`	`0.2
-
-`	`0.4
-
-`	`0.6
-
-`	`0.8
-
-`	`1
 
 ![](Aspose.Words.61606df1-f8d7-40b4-ba22-ef753f8c5b6b.004.png)
 
@@ -67,9 +45,7 @@ The program will output the filtered image of the map along with the values of t
 
 
 
-![A picture containing text
-
-Description automatically generated](Aspose.Words.61606df1-f8d7-40b4-ba22-ef753f8c5b6b.005.jpeg)
+![](Aspose.Words.61606df1-f8d7-40b4-ba22-ef753f8c5b6b.005.jpeg)
 
 *Figure 4    Develop-011 input (notice that the figure is inverted)*
 
