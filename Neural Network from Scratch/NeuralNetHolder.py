@@ -26,7 +26,7 @@ class Neurons:
             else:
                 result=result+((float((prev_layer[i]).av))*prev_layer[i].weights[self.index_neuron])
         
-        av=(1/(1+math.exp(-1*0.2*(result))))
+        av=(1/(1+math.exp(-1*0.5*(result))))
         return av
     
     
@@ -34,6 +34,7 @@ input_layer=[Neurons(0,4,0),Neurons(0,4,1),Neurons(1,4,2)] # 1st argument is the
                                             # 2nd is the number of weights, defines how many nodes in next layer
                                             # 3rd is index, gives the index nuber(row number)
                                             #input_layer[2] is the bias
+
 
 hidden_layer=[Neurons(0, 2, 0), Neurons(0, 2, 1),Neurons(0, 2, 2),Neurons(0, 2, 3), Neurons(1, 2, 4)]
 
@@ -119,51 +120,20 @@ def feedforward_process(data):
         predicted_output.append(output_layer[i].av)
         #print("av of output laye",i, "is", output_layer[i].av)
         
-    print(predicted_output)
+   # print(predicted_output)
         
     return predicted_output
 
 
-maximum_of_x1=541.6495126
+maximum_of_x1=543.4653405
+minimum_of_x1=-589.5854999
+maximum_of_x2=689.3468253
+minimum_of_x2=65.93032699
+maximum_of_y1=7.977472435
+minimum_of_y1=-2.865481767
+maximum_of_y2=4.575297258
+minimum_of_y2=-4.490872799
 
-
-
-
-
-minimum_of_x1=-464.9808779
-
-
-
-
-
-maximum_of_x2=683.5860241
-
-
-
-
-
-minimum_of_x2=65.63660909
-
-
-
-
-
-maximum_of_y1=4.420826669
-
-
-
-
-minimum_of_y1=-2.979173331
-
-
-
-
-maximum_of_y2=1.857067483
-
-
-
-
-minimum_of_y2=-3.075250062
 
 
 
@@ -199,18 +169,33 @@ class NeuralNetHolder:
         input_rows=input_row.split(',')
         for i in range(len(input_rows)):
               input_rows[i]=float(input_rows[i])
-        input_rows[0]= (input_rows[0]-minimum_of_x1)/(maximum_of_x1- minimum_of_x1)
-        input_rows[1]= (input_rows[1]-minimum_of_x2)/(maximum_of_x2- minimum_of_x2)
+        
+        
+        if input_rows[0]<=0:
+            input_rows[0]= ((input_rows[0]-minimum_of_x1)/(maximum_of_x1- minimum_of_x1))-0.65 # 0.65 is the error on our output which was calculated after various trial and error
+            
+        
+            
+        else:
+            input_rows[0]= ((input_rows[0]-minimum_of_x1)/(maximum_of_x1- minimum_of_x1))+0.65
+            
+        
+        
+        
+        if input_rows[1]==0:
+            input_rows[1]=0
+        else:
+            input_rows[1]= (input_rows[1]-minimum_of_x2)/(maximum_of_x2- minimum_of_x2)
+            
         print("normalised 0 =",input_rows[0])
         print("normalised 1 =",input_rows[1])
         output=[]
         output=feedforward_process(input_rows)
-        output[0]=(output[0]*(maximum_of_y1-minimum_of_y1)+minimum_of_y1)
-        output[1]=(output[1]*(maximum_of_y2-minimum_of_y2)+minimum_of_y2)
+        output[0]=0.4*(((output[0]*(maximum_of_y1-minimum_of_y1))+minimum_of_y1))
+        output[1]=-0.1*((output[1]*(maximum_of_y2-minimum_of_y2))+minimum_of_y2)
         
         print("denormalised Output =",output)
         
             
         return output
-        # WRITE CODE TO PROCESS INPUT ROW AND PREDICT X_Velocity and Y_Velocity
-       # pass # this pass can be removed once you add some code
+      
